@@ -1,0 +1,25 @@
+<div class="question-card" [class.submitted]="isSubmitted()" [class.correct-card]="isCorrectAnswer() === true" [class.incorrect-card]="isCorrectAnswer() === false">
+  <div class="card-header">
+    <span class="question-number">{{ questionNumber() }}</span>
+    <span class="question-text">{{ question().question }}</span>
+    @if (isSubmitted()) {
+      <span class="result-badge" [class.correct]="isCorrectAnswer()" [class.incorrect]="!isCorrectAnswer()">
+        {{ isCorrectAnswer() ? '✓ Correcto' : '✗ Incorrecto' }}
+      </span>
+    }
+  </div>
+
+  <div class="options-grid">
+    @for (option of question().options; track $index) {
+      <button
+        [class]="getOptionClass($index)"
+        [disabled]="isSubmitted()"
+        (click)="onSelectOption($index)"
+        type="button"
+      >
+        <span class="option-letter">{{ getOptionLetter($index) }}</span>
+        <span class="option-text">{{ option }}</span>
+      </button>
+    }
+  </div>
+</div>
