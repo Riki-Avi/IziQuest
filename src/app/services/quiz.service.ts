@@ -48,9 +48,9 @@ export class QuizService {
       }
 
       const questions: Question[] = parsed.map((q: any, i: number) => {
-        if (!q.question || !Array.isArray(q.options) || q.options.length < 2) {
+        if (!q.question || !Array.isArray(q.options) || q.options.length < 2 || q.options.length > 7) {
           throw new Error(
-            `Pregunta ${i + 1}: debe tener "question" (string) y "options" (array con al menos 2 opciones).`
+            `Pregunta ${i + 1}: debe tener "question" (string) y "options" (array entre 2 y 7 opciones).`
           );
         }
         if (typeof q.correctIndex !== 'number' || q.correctIndex < 0 || q.correctIndex >= q.options.length) {

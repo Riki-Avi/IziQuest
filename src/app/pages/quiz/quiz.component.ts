@@ -36,19 +36,27 @@ export class QuizComponent {
       {
         id: 2,
         question: '¿Cuántos planetas tiene el sistema solar?',
-        options: ['7', '8', '9', '10'],
+        options: ['7', '8', '9', '10', '11'],
         correctIndex: 1,
       },
       {
         id: 3,
         question: '¿En qué año llegó el hombre a la Luna?',
-        options: ['1965', '1969', '1971', '1975'],
-        correctIndex: 1,
+        options: ['1960', '1965', '1969', '1971', '1975', '1980'],
+        correctIndex: 2,
       },
       {
         id: 4,
         question: '¿Cuál es el océano más grande del mundo?',
-        options: ['Atlántico', 'Índico', 'Pacífico', 'Ártico'],
+        options: [
+          'Atlántico',
+          'Índico',
+          'Pacífico',
+          'Ártico',
+          'Antártico',
+          'Austral',
+          'Mediterráneo'
+        ],
         correctIndex: 2,
       },
       {

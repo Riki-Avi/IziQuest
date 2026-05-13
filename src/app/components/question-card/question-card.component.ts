@@ -42,8 +42,4 @@ export class QuestionCardComponent {
 
     return classes.join(' ');
   }
-
-  getOptionLetter(index: number): string {
-    return String.fromCharCode(65 + index);
-  }
 }
