@@ -32,7 +32,7 @@
 
 .question-text {
   flex: 1;
-  font-size: 1.15rem;
+  font-size: 1rem;
   font-weight: 700;
   color: #ffffff;
   line-height: 1.5;
@@ -73,7 +73,7 @@
   border: none;
   background: transparent;
   color: #e2e8f0;
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   font-family: inherit;
   cursor: pointer;
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
@@ -183,6 +183,6 @@
   }
 
   .question-text {
-    font-size: 1.05rem;
+    font-size: 0.95rem;
   }
 }
