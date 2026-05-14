@@ -104,11 +104,11 @@
   <!-- Action buttons -->
   <div class="quiz-actions">
     @if (!isSubmitted()) {
-    <button class="submit-btn" (click)="onSubmitQuiz()" [disabled]="!allAnswered()" type="button">
+    <button class="submit-btn" (click)="onSubmitQuiz()" type="button">
       @if (allAnswered()) {
       ✅ Finalizar Quiz
       } @else {
-      Respondé todas las preguntas ({{ answeredCount() }}/{{ totalQuestions() }})
+      ✅ Finalizar Quiz ({{ answeredCount() }}/{{ totalQuestions() }})
       }
     </button>
     } @else {
