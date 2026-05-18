@@ -153,6 +153,56 @@
   flex: 1;
 }
 
+/* Explanation block */
+.explanation-block {
+  margin-top: 1.5rem;
+  padding: 1.25rem;
+  background: rgba(59, 130, 246, 0.05);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-radius: 6px;
+  animation: explanationSlide 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.explanation-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  color: #60a5fa;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.explanation-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.explanation-text {
+  margin: 0;
+  color: #cbd5e1;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  white-space: pre-line;
+}
+
+@keyframes explanationSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+    max-height: 0;
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: 500px;
+  }
+}
+
 @keyframes cardEntrance {
   from {
     opacity: 0;

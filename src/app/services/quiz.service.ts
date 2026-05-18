@@ -63,6 +63,7 @@ export class QuizService {
           question: q.question,
           options: q.options,
           correctIndex: q.correctIndex,
+          ...(q.explanation ? { explanation: q.explanation } : {}),
         };
       });
 

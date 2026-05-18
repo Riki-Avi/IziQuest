@@ -32,18 +32,21 @@ export class QuizComponent {
         question: '¿Cuál es la capital de Francia?',
         options: ['Madrid', 'París', 'Roma', 'Berlín'],
         correctIndex: 1,
+        explanation: 'París es la capital y ciudad más poblada de Francia. Desde la Edad Media ha sido uno de los centros culturales, económicos y políticos más importantes de Europa. Madrid es la capital de España, Roma de Italia y Berlín de Alemania.',
       },
       {
         id: 2,
         question: '¿Cuántos planetas tiene el sistema solar?',
         options: ['7', '8', '9', '10', '11'],
         correctIndex: 1,
+        explanation: 'El sistema solar tiene 8 planetas: Mercurio, Venus, Tierra, Marte, Júpiter, Saturno, Urano y Neptuno. Plutón fue reclasificado como "planeta enano" en 2006 por la Unión Astronómica Internacional (UAI), por lo que dejó de considerarse el noveno planeta.',
       },
       {
         id: 3,
         question: '¿En qué año llegó el hombre a la Luna?',
         options: ['1960', '1965', '1969', '1971', '1975', '1980'],
         correctIndex: 2,
+        explanation: 'El 20 de julio de 1969, la misión Apollo 11 de la NASA logró el primer alunizaje tripulado. Neil Armstrong fue el primer ser humano en pisar la superficie lunar, seguido por Buzz Aldrin, mientras Michael Collins orbitaba en el módulo de comando.',
       },
       {
         id: 4,
@@ -58,12 +61,14 @@ export class QuizComponent {
           'Mediterráneo'
         ],
         correctIndex: 2,
+        explanation: 'El Océano Pacífico es el más grande y profundo del planeta, cubriendo aproximadamente 165,25 millones de km² (más de un tercio de la superficie terrestre). Su nombre fue dado por el explorador Fernando de Magallanes en 1520, al encontrar sus aguas más calmadas que las del Atlántico.',
       },
       {
         id: 5,
         question: '¿Qué gas es esencial para la respiración humana?',
         options: ['Nitrógeno', 'Dióxido de carbono', 'Helio', 'Oxígeno'],
         correctIndex: 3,
+        explanation: 'El oxígeno (O₂) es el gas esencial para la respiración celular. Las células lo utilizan para convertir glucosa en energía (ATP) mediante un proceso llamado respiración aeróbica. Aunque el nitrógeno compone el 78% de la atmósfera, no participa en la respiración. El CO₂ es un producto de desecho de este proceso.',
       },
     ],
     null,

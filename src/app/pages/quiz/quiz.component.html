@@ -20,8 +20,9 @@
   {
     "id": 1,
     "question": "¿Tu pregunta aquí?",
-    "options": ["Opción A", "Opción B", "Opción C", "Opción D", "Opción E", "Opción F", "Opción G"],
-    "correctIndex": 0
+    "options": ["Opción A", "Opción B", "Opción C", "Opción D"],
+    "correctIndex": 0,
+    "explanation": "Explicación detallada de la respuesta (opcional)"
   }
 ]' rows="14" spellcheck="false"></textarea>
 
@@ -40,7 +41,7 @@
   <div class="format-hint">
     <p class="hint-title">📐 Formato esperado</p>
     <code
-      class="hint-code">{{ '{ "question": "...", "options": ["A","B","C","D","E","F","G"], "correctIndex": 0 }' }}</code>
+      class="hint-code">{{ '{ "question": "...", "options": ["A","B","C","D"], "correctIndex": 0, "explanation": "..." }' }}</code>
   </div>
 </div>
 }
