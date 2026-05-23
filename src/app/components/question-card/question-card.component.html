@@ -1,18 +1,22 @@
 <div class="question-card" [class.submitted]="isSubmitted()" [class.correct-card]="isCorrectAnswer() === true"
   [class.incorrect-card]="isCorrectAnswer() === false">
+  
   <div class="card-header">
-    <span class="question-text">{{ question().question }}</span>
-    @if (isSubmitted()) {
-    <span class="result-badge" [class.correct]="isCorrectAnswer()" [class.incorrect]="!isCorrectAnswer()">
-      {{ isCorrectAnswer() ? '✓ Correcto' : '✗ Incorrecto' }}
-    </span>
-    }
+    <div class="question-meta">
+      <span class="question-badge">Pregunta {{ questionNumber() }}</span>
+      @if (isSubmitted()) {
+        <span class="result-badge" [class.correct]="isCorrectAnswer()" [class.incorrect]="!isCorrectAnswer()">
+          {{ isCorrectAnswer() ? '✓ Correcto' : '✗ Incorrecto' }}
+        </span>
+      }
+    </div>
+    <h3 class="question-text">{{ question().question }}</h3>
   </div>
 
-  <div class="options-grid">
+  <div class="options-list">
     @for (option of question().options; track $index) {
     <button [class]="getOptionClass($index)" [disabled]="isSubmitted()" (click)="onSelectOption($index)" type="button">
-      <span class="radio-circle"></span>
+      <span class="option-badge">{{ ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L'][$index] }}</span>
       <span class="option-text">{{ option }}</span>
     </button>
     }
@@ -21,12 +25,12 @@
   @if (isSubmitted() && question().explanation) {
   <div class="explanation-block">
     <div class="explanation-header">
-      <svg class="explanation-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="12" cy="12" r="10"/>
-        <path d="M12 16v-4"/>
-        <path d="M12 8h.01"/>
+      <svg class="explanation-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="12" y1="16" x2="12" y2="12"></line>
+        <line x1="12" y1="8" x2="12.01" y2="8"></line>
       </svg>
-      <span>Explicación</span>
+      <span class="explanation-title">Explicación</span>
     </div>
     <p class="explanation-text">{{ question().explanation }}</p>
   </div>

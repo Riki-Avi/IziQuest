@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { QuizService } from '../../services/quiz.service';
+import { ThemeService } from '../../services/theme.service';
 import { QuestionCardComponent } from '../../components/question-card/question-card.component';
 
 @Component({
@@ -12,6 +13,7 @@ import { QuestionCardComponent } from '../../components/question-card/question-c
 })
 export class QuizComponent {
   private readonly quizService = inject(QuizService);
+  readonly themeService = inject(ThemeService);
 
   readonly quizState = signal<'input' | 'quiz'>('input');
   readonly jsonInput = signal('');

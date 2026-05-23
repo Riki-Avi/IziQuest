@@ -1,122 +1,151 @@
-<!-- ======================== INPUT STATE ======================== -->
-@if (quizState() === 'input') {
-<div class="input-container">
-  <div class="hero-section">
-    <div class="logo-icon">⚡</div>
-    <h1 class="app-title">Izi<span class="title-accent">Quest</span></h1>
-    <p class="app-subtitle">Pegá tu JSON de preguntas y comenzá el quiz</p>
+<header class="app-header">
+  <div class="header-container">
+    <div class="logo">
+      <span class="logo-icon">⚡</span>
+      <span class="logo-text">Izi<span class="logo-accent">Quest</span></span>
+    </div>
+    <button class="theme-toggle" (click)="themeService.toggleTheme()" [attr.aria-label]="themeService.theme() === 'dark' ? 'Activar modo claro' : 'Activar modo oscuro'" type="button">
+      @if (themeService.theme() === 'dark') {
+        <svg class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <span class="toggle-label">Modo Claro</span>
+      } @else {
+        <svg class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+        <span class="toggle-label">Modo Oscuro</span>
+      }
+    </button>
   </div>
+</header>
 
-  <div class="input-card">
-    <div class="input-header">
-      <label for="json-input" class="input-label">JSON de preguntas</label>
-      <button class="sample-btn" (click)="onLoadSample()" type="button">
-        📋 Cargar ejemplo
-      </button>
+<main class="main-content">
+  <!-- ======================== INPUT STATE ======================== -->
+  @if (quizState() === 'input') {
+  <div class="input-container">
+    <div class="hero-section">
+      <h1 class="hero-title">Crear Nuevo Quiz</h1>
+      <p class="hero-subtitle">Pegá tu archivo JSON de preguntas y comenzá de inmediato</p>
     </div>
 
-    <textarea id="json-input" class="json-textarea" [ngModel]="jsonInput()" (ngModelChange)="jsonInput.set($event)"
-      placeholder='[
+    <div class="input-card">
+      <div class="input-header">
+        <label for="json-input" class="input-label">JSON de preguntas</label>
+        <button class="sample-btn" (click)="onLoadSample()" type="button">
+          📋 Cargar datos de ejemplo
+        </button>
+      </div>
+
+      <textarea id="json-input" class="json-textarea" [ngModel]="jsonInput()" (ngModelChange)="jsonInput.set($event)"
+        placeholder='[
   {
     "id": 1,
     "question": "¿Tu pregunta aquí?",
     "options": ["Opción A", "Opción B", "Opción C", "Opción D"],
     "correctIndex": 0,
-    "explanation": "Explicación detallada de la respuesta (opcional)"
+    "explanation": "Explicación de la respuesta (opcional)"
   }
-]' rows="14" spellcheck="false"></textarea>
+]' rows="12" spellcheck="false"></textarea>
 
-    @if (errorMessage()) {
-    <div class="error-message">
-      <span class="error-icon">⚠️</span>
-      {{ errorMessage() }}
-    </div>
-    }
-
-    <button class="start-btn" (click)="onStartQuiz()" [disabled]="!jsonInput()" type="button">
-      🚀 Comenzar Quiz
-    </button>
-  </div>
-
-  <div class="format-hint">
-    <p class="hint-title">📐 Formato esperado</p>
-    <code
-      class="hint-code">{{ '{ "question": "...", "options": ["A","B","C","D"], "correctIndex": 0, "explanation": "..." }' }}</code>
-  </div>
-</div>
-}
-
-<!-- ======================== QUIZ STATE ======================== -->
-@if (quizState() === 'quiz') {
-<div class="quiz-container">
-
-  <!-- Results banner (after submission) -->
-  @if (isSubmitted()) {
-  <div class="results-banner">
-    <div class="results-emoji">{{ getScoreEmoji() }}</div>
-    <div class="results-info">
-      <h2 class="results-title">Resultados</h2>
-      <p class="results-message">{{ getScoreMessage() }}</p>
-    </div>
-    <div class="results-score">
-      <span class="score-number">{{ score() }}</span>
-      <span class="score-separator">/</span>
-      <span class="score-total">{{ totalQuestions() }}</span>
-    </div>
-    <div class="results-percentage">{{ getScorePercentage() }}%</div>
-  </div>
-  }
-
-  <!-- Quiz header -->
-  <div class="quiz-header">
-    <div class="quiz-header-left">
-      <h2 class="quiz-title">
-        @if (isSubmitted()) {
-        📊 Revisión de respuestas
-        } @else {
-        📝 Respondé todas las preguntas
-        }
-      </h2>
-      <p class="quiz-progress">
-        @if (!isSubmitted()) {
-        {{ answeredCount() }} de {{ totalQuestions() }} respondidas
-        } @else {
-        {{ score() }} correctas de {{ totalQuestions() }}
-        }
-      </p>
-    </div>
-
-    @if (!isSubmitted()) {
-    <div class="progress-bar-container">
-      <div class="progress-bar-fill" [style.width.%]="(answeredCount() / totalQuestions()) * 100"></div>
-    </div>
-    }
-  </div>
-
-  <!-- Questions list -->
-  <div class="questions-list">
-    @for (question of questions(); track question.id; let i = $index) {
-    <app-question-card [question]="question" [questionNumber]="i + 1" [selectedOption]="getSelectedOption(question.id)"
-      [isSubmitted]="isSubmitted()" (optionSelected)="onSelectAnswer(question.id, $event)"
-      [style.animation-delay]="(i * 0.08) + 's'" />
-    }
-  </div>
-
-  <!-- Action buttons -->
-  <div class="quiz-actions">
-    @if (!isSubmitted()) {
-    <button class="submit-btn" (click)="onSubmitQuiz()" type="button">
-      @if (allAnswered()) {
-      ✅ Finalizar Quiz
-      } @else {
-      ✅ Finalizar Quiz ({{ answeredCount() }}/{{ totalQuestions() }})
+      @if (errorMessage()) {
+      <div class="error-message">
+        <span class="error-icon">⚠️</span>
+        <span class="error-text">{{ errorMessage() }}</span>
+      </div>
       }
-    </button>
-    } @else {
-    <button class="reset-btn" (click)="onReset()" type="button">
-      🔄 Nuevo Quiz
-    </button>
-    }
+
+      <button class="start-btn" (click)="onStartQuiz()" [disabled]="!jsonInput()" type="button">
+        🚀 Comenzar Quiz
+      </button>
+    </div>
+
+    <div class="format-hint">
+      <p class="hint-title">Formato esperado para cada pregunta:</p>
+      <code class="hint-code">{{ '{ "question": "...", "options": ["A","B","C"], "correctIndex": 0, "explanation": "..." }' }}</code>
+    </div>
   </div>
-</div>
-}
+  }
+
+  <!-- ======================== QUIZ STATE ======================== -->
+  @if (quizState() === 'quiz') {
+  <div class="quiz-container">
+
+    <!-- Results banner (after submission) -->
+    @if (isSubmitted()) {
+    <div class="results-banner">
+      <div class="results-emoji">{{ getScoreEmoji() }}</div>
+      <div class="results-details">
+        <h2 class="results-title">Quiz Finalizado</h2>
+        <p class="results-message">{{ getScoreMessage() }}</p>
+      </div>
+      <div class="results-score-box">
+        <div class="score-fraction">
+          <span class="score-obtained">{{ score() }}</span>
+          <span class="score-divider">/</span>
+          <span class="score-max">{{ totalQuestions() }}</span>
+        </div>
+        <div class="score-percent">{{ getScorePercentage() }}% de aciertos</div>
+      </div>
+    </div>
+    }
+
+    <!-- Quiz header -->
+    <div class="quiz-header">
+      <div class="quiz-meta">
+        <h2 class="quiz-title">
+          @if (isSubmitted()) {
+            Revisión de respuestas
+          } @else {
+            Responder preguntas
+          }
+        </h2>
+        <span class="quiz-counter">
+          @if (!isSubmitted()) {
+            {{ answeredCount() }} de {{ totalQuestions() }} contestadas
+          } @else {
+            {{ score() }} aciertos de {{ totalQuestions() }}
+          }
+        </span>
+      </div>
+
+      @if (!isSubmitted()) {
+      <div class="progress-bar-wrapper">
+        <div class="progress-bar-track">
+          <div class="progress-bar-fill" [style.width.%]="(answeredCount() / totalQuestions()) * 100"></div>
+        </div>
+      </div>
+      }
+    </div>
+
+    <!-- Questions list -->
+    <div class="questions-list">
+      @for (question of questions(); track question.id; let i = $index) {
+      <app-question-card [question]="question" [questionNumber]="i + 1" [selectedOption]="getSelectedOption(question.id)"
+        [isSubmitted]="isSubmitted()" (optionSelected)="onSelectAnswer(question.id, $event)" />
+      }
+    </div>
+
+    <!-- Action buttons -->
+    <div class="quiz-actions">
+      @if (!isSubmitted()) {
+      <button class="submit-btn" (click)="onSubmitQuiz()" type="button">
+        Finalizar y ver resultados
+      </button>
+      } @else {
+      <button class="reset-btn" (click)="onReset()" type="button">
+        Crear nuevo quiz
+      </button>
+      }
+    </div>
+  </div>
+  }
+</main>
